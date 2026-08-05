@@ -1,0 +1,7 @@
+# JARVIS agent — Python deps.
+# The [google] extra pulls the LiveKit Gemini Live (native audio) plugin.
+livekit-agents[google]>=1.6,<2
+python-dotenv>=1.0
+
+# NOTE: gemini-3.1-flash-live-preview is a new preview model. If the installed
+# plugin rejects the model string, upgrade:  pip install -U "livekit-agents[google]"

@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #060b16;
+  --panel: #0b1426;
+  --edge: #15315c;
+  --glow: #38bdf8;
+  --glow-soft: #1e7fb8;
+  --text: #cfe8ff;
+  --muted: #6f8bb0;
+  --risk: #ff5a5f;
+}
+
+html,
+body {
+  background:
+    radial-gradient(1200px 800px at 70% -10%, rgba(56, 189, 248, 0.08), transparent),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* rotate / scale about the element's own centre (works for SVG shapes) */
+.tbc { transform-box: fill-box; transform-origin: center; }
+.spin-cw { transform-box: fill-box; transform-origin: center; animation: spinCW linear infinite; }
+.spin-ccw { transform-box: fill-box; transform-origin: center; animation: spinCCW linear infinite; }
+
+@keyframes spinCW { to { transform: rotate(360deg); } }
+@keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+@keyframes ripple {
+  0% { transform: scale(0.45); opacity: 0.6; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes bootBurst {
+  0% { transform: scale(0.2); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: scale(2); opacity: 0; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.35; }
+  55% { opacity: 0.9; }
+  70% { opacity: 0.4; }
+}
+@keyframes scanline {
+  0% { top: -5%; }
+  100% { top: 105%; }
+}
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+.orb { animation: orbPulse 2.4s ease-in-out infinite; }
+
+/* render-canvas: self-drawing chart + panel fade-in */
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawLine 1.3s ease forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.fade-up { opacity: 0; animation: fadeUp 0.4s ease forwards; }

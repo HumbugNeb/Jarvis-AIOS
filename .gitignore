@@ -1,0 +1,23 @@
+# secrets
+.env
+*.env
+.env*.local
+!.env.example
+!.env.local.example
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# node / next
+node_modules/
+.next/
+out/
+npm-debug.log*
+*.tsbuildinfo
+
+# runtime
+*.log
+.jarvis-pids

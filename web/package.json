@@ -1,0 +1,27 @@
+{
+  "name": "jarvis-hud",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.18",
+    "livekit-client": "^2.5.0",
+    "livekit-server-sdk": "^2.7.0",
+    "next": "^16.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.0"
+  }
+}
