@@ -18,6 +18,7 @@ from livekit import agents
 from livekit.agents import Agent, AgentSession, RoomInputOptions, RunContext, function_tool
 from livekit.plugins import google
 
+from memory import add_note, memory_block
 from prompts import SYSTEM_INSTRUCTION
 from render import publish_render
 
@@ -29,10 +30,12 @@ GEMINI_VOICE = os.getenv("GEMINI_VOICE", "Charon")
 
 
 class Jarvis(Agent):
-    """General assistant + four screen tools. Each tool paints the HUD in sync with speech."""
+    """General assistant with four screen tools + long-term memory across sessions."""
 
     def __init__(self, room) -> None:
-        super().__init__(instructions=SYSTEM_INSTRUCTION)
+        # Load durable memory from past sessions into the instruction, so JARVIS boots
+        # already knowing the operator.
+        super().__init__(instructions=SYSTEM_INSTRUCTION + memory_block())
         self._room = room  # the shared LiveKit room (the HUD is in here too)
 
     @function_tool()
@@ -70,6 +73,17 @@ class Jarvis(Agent):
         operator asks to clear, reset, or wipe the screen / graphs."""
         await publish_render(self._room, "clear", {})
         return "Screen cleared."
+
+    @function_tool()
+    async def remember(self, context: RunContext, note: str) -> str:
+        """Save a durable fact to long-term memory so you still know it in future sessions.
+        Use it when you learn something worth keeping about the operator — their name,
+        preferences, ongoing projects, important details — or whenever they ask you to
+        remember something. Pass ONE concise, self-contained fact per call, phrased so it
+        still makes sense later out of context (e.g. "The operator's name is Ben" or
+        "Ben is building a 2D game in Godot")."""
+        add_note(note)
+        return "Saved to memory."
 
 
 async def entrypoint(ctx: agents.JobContext) -> None:

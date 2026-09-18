@@ -21,3 +21,6 @@ npm-debug.log*
 # runtime
 *.log
 .jarvis-pids
+
+# JARVIS long-term memory — per-user, personal (like .env). Never commit.
+jarvis_memory.json*
